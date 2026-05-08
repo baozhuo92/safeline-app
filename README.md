@@ -1,6 +1,12 @@
 # Safeline App
 
-基于 UniApp 开发的雷池（SafeLine）WAF 网站管理移动端应用，支持一键切换网站防护/维护模式。
+基于 UniApp 开发的雷池（SafeLine）WAF 网站管理移动端应用，支持一键切换网站防护/维护模式。可编译为 Android/iOS App，也可编译为微信小程序，作者亲测可用。
+
+## 为什么做这个项目
+
+家里的 NAS 通过 DDNS 对外映射了域名，搭配雷池 WAF 方便出门在外时访问家中服务。但大多数时候其实用不到外部访问，而域名一旦暴露在公网就会被各种扫描器盯上。于是有了这个需求：**不用的时候随手切维护，用的时候再打开**，既保证安全又不影响随时使用。
+
+雷池后台是 Web 端，每次开关都要打开电脑登录，太麻烦。所以做了这个移动端 App / 小程序，掏出手机就能一键切换所有网站的状态。
 
 ## 功能
 
@@ -73,7 +79,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/baozhuo92/safeline-app.git
+git clone https://github.com/yourname/safeline-app.git
 cd safeline-app
 
 # 安装依赖
