@@ -261,7 +261,7 @@ export default {
     },
     
     goToSettings() {
-      uni.navigateTo({
+      uni.switchTab({
         url: '/pages/settings/settings'
       })
     },

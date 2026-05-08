@@ -15,7 +15,7 @@
               <input 
                 v-model="config.baseUrl"
                 class="form-input"
-                placeholder="https://web.520527.xyz:54321/api"
+                placeholder="https://your-site.com/api"
                 type="text"
               />
             </view>
