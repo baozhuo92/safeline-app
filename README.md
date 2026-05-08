@@ -43,7 +43,7 @@
 
 ## API 接口
 
-基于 [SafeLine-CE mgt API](https://web.520527.xyz:54321/swagger/index.html)，使用 `X-SLCE-API-TOKEN` 请求头认证。
+基于 [SafeLine-CE mgt API](https://github.com/baozhuo92/safeline-app/blob/main/docs/SafeLine-CE%20mgt%20API.md)，使用 `X-SLCE-API-TOKEN` 请求头认证。
 
 | 接口 | 方法 | 说明 |
 |------|------|------|
@@ -73,20 +73,14 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/yourname/safeline-app.git
-cd safeline-app/Safeline-app
+git clone https://github.com/baozhuo92/safeline-app.git
+cd safeline-app
 
 # 安装依赖
 npm install
 
-# H5 开发
-npm run dev:h5
-
-# 微信小程序
-npm run dev:mp-weixin
 ```
-
-也可直接用 HBuilderX 打开项目目录运行。
+用 HBuilderX 打开项目目录运行。
 
 ### 配置 API
 
