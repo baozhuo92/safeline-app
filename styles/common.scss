@@ -1,0 +1,306 @@
+/**
+ * Safeline App - 公共样式
+ * Hyperrealism 风格 + 淡绿主色调
+ * 特征：深度阴影、玻璃质感、反射高光、物理真实感
+ */
+
+/* ==================== 色彩体系 ==================== */
+$color-primary: #0CA678;        // 主色 - 浓郁翡翠绿
+$color-primary-light: #E6FCF5;  // 主色浅
+$color-primary-dark: #087F5B;   // 主色深
+$color-primary-glow: rgba(12, 166, 120, 0.35);
+
+$color-success: #0CA678;        // 成功
+$color-warning: #F59E0B;        // 警告
+$color-danger: #E03131;         // 危险
+$color-info: #339AF0;           // 信息
+
+$color-white: #FFFFFF;
+$color-bg: #F0F1F3;             // 页面背景 - 微灰纹理感
+$color-border: #DEE2E6;         // 边框
+
+$color-text-primary: #1A1A1A;   // 主文字 - 更深
+$color-text-secondary: #5C5C5C; // 次要文字
+$color-text-disabled: #ADB5BD;  // 禁用文字
+
+/* ==================== 字体规范 ==================== */
+$font-size-xs: 24rpx;   // 12px
+$font-size-sm: 28rpx;   // 14px
+$font-size-md: 32rpx;   // 16px
+$font-size-lg: 40rpx;   // 20px
+$font-size-xl: 48rpx;   // 24px
+
+/* ==================== 间距规范 ==================== */
+$spacing-xs: 8rpx;
+$spacing-sm: 16rpx;
+$spacing-md: 24rpx;
+$spacing-lg: 32rpx;
+$spacing-xl: 48rpx;
+
+/* ==================== 圆角规范 ==================== */
+$radius-sm: 10rpx;
+$radius-md: 14rpx;
+$radius-lg: 20rpx;
+$radius-xl: 28rpx;
+
+/* ==================== Hyperrealism 卡片 ==================== */
+/* 玻璃质感卡片 - 多层深度阴影 + 顶部高光线 */
+.clay-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FCFCFD 100%);
+  border-radius: $radius-lg;
+  position: relative;
+  border: 1rpx solid rgba(0, 0, 0, 0.06);
+  
+  /* 三层阴影模拟物理深度 */
+  box-shadow:
+    0 1rpx 2rpx rgba(0, 0, 0, 0.04),   /* 紧贴边缘的细影 */
+    0 6rpx 16rpx rgba(0, 0, 0, 0.08),   /* 中距离投影 */
+    0 16rpx 40rpx rgba(0, 0, 0, 0.06);  /* 远距离环境光遮蔽 */
+  
+  /* 顶部高光线 - 模拟光源反射 */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: $spacing-sm;
+    right: $spacing-sm;
+    height: 1rpx;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+    border-radius: $radius-lg $radius-lg 0 0;
+  }
+}
+
+.clay-card-hover {
+  transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+  
+  &:active {
+    transform: scale(0.975);
+    box-shadow:
+      0 1rpx 2rpx rgba(0, 0, 0, 0.06),
+      0 3rpx 8rpx rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* ==================== Hyperrealism 按钮 ==================== */
+.clay-button {
+  background: linear-gradient(180deg, #0EDC9C 0%, #0CA678 60%, #087F5B 100%);
+  border-radius: $radius-md;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  
+  /* 底部阴影 + 发光 */
+  box-shadow:
+    0 4rpx 12rpx $color-primary-glow,
+    0 1rpx 2rpx rgba(0, 0, 0, 0.15),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.25);
+  
+  color: $color-white;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  padding: $spacing-sm $spacing-lg;
+  letter-spacing: 1rpx;
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  
+  /* 顶部玻璃反射光 */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+    border-radius: $radius-md $radius-md 0 0;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+    box-shadow:
+      0 2rpx 6rpx $color-primary-glow,
+      inset 0 2rpx 4rpx rgba(0, 0, 0, 0.15);
+  }
+}
+
+.clay-button-secondary {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
+  color: $color-primary;
+  border: 1.5rpx solid rgba(12, 166, 120, 0.3);
+  border-radius: $radius-md;
+  box-shadow:
+    0 2rpx 8rpx rgba(0, 0, 0, 0.06),
+    0 1rpx 2rpx rgba(0, 0, 0, 0.04);
+  font-size: $font-size-sm;
+  font-weight: 600;
+  padding: $spacing-sm $spacing-lg;
+  letter-spacing: 1rpx;
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  
+  &:active {
+    background: $color-primary-light;
+    transform: scale(0.95);
+  }
+}
+
+.clay-button-danger {
+  background: linear-gradient(180deg, #FF6B6B 0%, #E03131 60%, #C92A2A 100%);
+  border-radius: $radius-md;
+  border: none;
+  box-shadow:
+    0 4rpx 12rpx rgba(224, 49, 49, 0.3),
+    0 1rpx 2rpx rgba(0, 0, 0, 0.15),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.2);
+  color: $color-white;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  padding: $spacing-sm $spacing-lg;
+  letter-spacing: 1rpx;
+  
+  &:active { transform: scale(0.95); }
+}
+
+/* ==================== Hyperrealism 输入框 ==================== */
+.clay-input {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 100%);
+  border-radius: $radius-sm;
+  border: 1.5rpx solid $color-border;
+  box-shadow:
+    0 1rpx 3rpx rgba(0, 0, 0, 0.04),
+    inset 0 1rpx 2rpx rgba(0, 0, 0, 0.03);
+  padding: $spacing-sm;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  transition: all 0.2s ease-out;
+  
+  &:focus {
+    border-color: $color-primary;
+    box-shadow:
+      0 0 0 4rpx rgba(12, 166, 120, 0.12),
+      inset 0 1rpx 2rpx rgba(0, 0, 0, 0.03);
+  }
+  
+  &::placeholder {
+    color: $color-text-disabled;
+  }
+}
+
+/* ==================== 页面布局 ==================== */
+.page-container {
+  min-height: 100vh;
+  background: $color-bg;
+  padding: $spacing-lg;
+  padding-top: $spacing-sm;
+  padding-bottom: calc($spacing-xl + env(safe-area-inset-bottom));
+}
+
+/* ==================== 状态标签 ==================== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  letter-spacing: 0.5rpx;
+  
+  &--defense {
+    background: linear-gradient(180deg, rgba(12, 166, 120, 0.12), rgba(12, 166, 120, 0.06));
+    color: $color-success;
+    border: 1rpx solid rgba(12, 166, 120, 0.25);
+    box-shadow: 0 2rpx 6rpx rgba(12, 166, 120, 0.1);
+  }
+  
+  &--offline {
+    background: linear-gradient(180deg, rgba(224, 49, 49, 0.12), rgba(224, 49, 49, 0.06));
+    color: $color-danger;
+    border: 1rpx solid rgba(224, 49, 49, 0.25);
+    box-shadow: 0 2rpx 6rpx rgba(224, 49, 49, 0.1);
+  }
+  
+  &--observe {
+    background: linear-gradient(180deg, rgba(51, 154, 240, 0.12), rgba(51, 154, 240, 0.06));
+    color: $color-info;
+    border: 1rpx solid rgba(51, 154, 240, 0.25);
+    box-shadow: 0 2rpx 6rpx rgba(51, 154, 240, 0.1);
+  }
+  
+  &--dryrun {
+    background: linear-gradient(180deg, rgba(107, 114, 128, 0.12), rgba(107, 114, 128, 0.06));
+    color: $color-text-secondary;
+    border: 1rpx solid rgba(107, 114, 128, 0.25);
+  }
+}
+
+/* ==================== 空状态 ==================== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  
+  &__icon {
+    width: 160rpx;
+    height: 160rpx;
+    margin-bottom: $spacing-md;
+    opacity: 0.4;
+  }
+  
+  &__text {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+/* ==================== 加载状态 ==================== */
+.loading-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(4rpx);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* ==================== 工具类 ==================== */
+.text-primary { color: $color-text-primary; }
+.text-secondary { color: $color-text-secondary; }
+.text-success { color: $color-success; }
+.text-warning { color: $color-warning; }
+.text-danger { color: $color-danger; }
+
+.bg-primary { background-color: $color-primary; }
+.bg-white { background-color: $color-white; }
+.bg-gray { background-color: $color-bg; }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+
+.rounded-sm { border-radius: $radius-sm; }
+.rounded-md { border-radius: $radius-md; }
+.rounded-lg { border-radius: $radius-lg; }
+
+.p-sm { padding: $spacing-sm; }
+.p-md { padding: $spacing-md; }
+.p-lg { padding: $spacing-lg; }
+
+.m-sm { margin: $spacing-sm; }
+.m-md { margin: $spacing-md; }
+.m-lg { margin: $spacing-lg; }
+
+.mb-sm { margin-bottom: $spacing-sm; }
+.mb-md { margin-bottom: $spacing-md; }
+.mb-lg { margin-bottom: $spacing-lg; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }

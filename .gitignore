@@ -1,0 +1,6 @@
+.idea
+node_modules/
+unpackage/
+.hbuilderx/
+.DS_Store
+/package-lock.json
