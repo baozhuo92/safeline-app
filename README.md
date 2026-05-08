@@ -123,3 +123,13 @@ Safeline-app/
 ## License
 
 MIT
+
+---
+
+## 请作者喝杯咖啡
+
+如果你觉得好用，不妨请我喝杯咖啡，给深夜写代码的人一点温暖 : )
+
+| 微信 | 支付宝 |
+|------|--------|
+| ![微信打赏](docs/images/pays/cb5f2f1b970202588a88db979bf6b1e3.png) | ![支付宝打赏](docs/images/pays/928fae21fe7ee22890cdd584a9a7832c.jpg) |
