@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/jay.bao/Documents/Server/flutter/packages/flutter_tools/gradle/src/main/scripts/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/jay.bao/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/jay.bao/Documents/Projects/PHP/teach/untitled/build/.cxx/debug/6e73j497/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/jay.bao/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/jay.bao/Documents/Projects/PHP/teach/untitled/build/.cxx/debug/6e73j497/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

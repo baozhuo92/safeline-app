@@ -1,0 +1,2 @@
+/Users/jay.bao/Documents/Projects/PHP/teach/untitled/build/.cxx/debug/6e73j497/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/jay.bao/Documents/Projects/PHP/teach/untitled/build/.cxx/debug/6e73j497/armeabi-v7a/CMakeFiles/rebuild_cache.dir
