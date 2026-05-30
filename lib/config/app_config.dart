@@ -9,6 +9,7 @@ class AppConfig extends ChangeNotifier {
   static const _keyHost = 'host';
   static const _keyToken = 'token';
   static const _keyIsHttps = 'is_https';
+  static const _keyAllowBadCert = 'allow_bad_cert';
   static const _keyThemeMode = 'theme_mode';
 
   // ---- 服务器配置 ----
@@ -21,6 +22,9 @@ class AppConfig extends ChangeNotifier {
   bool _isHttps = true;
   bool get isHttps => _isHttps;
 
+  bool _allowBadCert = true;
+  bool get allowBadCert => _allowBadCert;
+
   String get baseUrl => '${_isHttps ? 'https' : 'http'}://$_host';
 
   // ---- 主题 ----
@@ -31,12 +35,13 @@ class AppConfig extends ChangeNotifier {
   // ---- 初始化：从本地存储加载（在 main() 中调用） ----
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
-    _host = prefs.getString(_keyHost) ?? 'web.520527.xyz:54321/api/open';
-    _token = prefs.getString(_keyToken) ??
-        'Aumd.kp_9uP_0bywH5o-ouxNpLMNj2jD';
+    _host = prefs.getString(_keyHost) ?? '你的域名:端口/api/open';
+    _token = prefs.getString(_keyToken) ?? 'xxxxxxxxxxxxxxxxxxx';
     _isHttps = prefs.getBool(_keyIsHttps) ?? true;
-    _themeMode =
-        prefs.getString(_keyThemeMode) == 'dark' ? ThemeMode.dark : ThemeMode.light;
+    _allowBadCert = prefs.getBool(_keyAllowBadCert) ?? true;
+    _themeMode = prefs.getString(_keyThemeMode) == 'dark'
+        ? ThemeMode.dark
+        : ThemeMode.light;
     notifyListeners();
   }
 
@@ -46,7 +51,11 @@ class AppConfig extends ChangeNotifier {
     prefs.setString(_keyHost, _host);
     prefs.setString(_keyToken, _token);
     prefs.setBool(_keyIsHttps, _isHttps);
-    prefs.setString(_keyThemeMode, _themeMode == ThemeMode.dark ? 'dark' : 'light');
+    prefs.setBool(_keyAllowBadCert, _allowBadCert);
+    prefs.setString(
+      _keyThemeMode,
+      _themeMode == ThemeMode.dark ? 'dark' : 'light',
+    );
   }
 
   // ---- 操作方法（可在事件回调中调用） ----
@@ -63,9 +72,16 @@ class AppConfig extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setAllowBadCert(bool value) {
+    _allowBadCert = value;
+    _save();
+    notifyListeners();
+  }
+
   void toggleTheme() {
-    _themeMode =
-        _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    _themeMode = _themeMode == ThemeMode.light
+        ? ThemeMode.dark
+        : ThemeMode.light;
     _save();
     notifyListeners();
   }

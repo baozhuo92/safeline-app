@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 /// 统一 API 响应模型
@@ -60,7 +61,9 @@ class ApiClient {
 
   /// 构建完整 URI
   Uri _buildUri(String path, [Map<String, dynamic>? query]) {
-    final fullUrl = '$baseUrl$path';
+    final base = baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl;
+    final p = path.startsWith('/') ? path : '/$path';
+    final fullUrl = '$base$p';
     final uri = Uri.parse(fullUrl);
     if (query != null && query.isNotEmpty) {
       return uri.replace(queryParameters: {
@@ -76,12 +79,16 @@ class ApiClient {
     Map<String, String>? headers,
     Map<String, dynamic>? query,
   }) async {
+    final uri = _buildUri(path, query);
+    debugPrint('[ApiClient] GET $uri');
     try {
       final response = await _client
-          .get(_buildUri(path, query), headers: {..._authHeaders, ...?headers})
+          .get(uri, headers: {..._authHeaders, ...?headers})
           .timeout(timeout);
+      debugPrint('[ApiClient] Response ${response.statusCode}');
       return _parseResponse(response);
     } catch (e) {
+      debugPrint('[ApiClient] Error: $e');
       return _handleError(e);
     }
   }
@@ -118,10 +125,12 @@ class ApiClient {
     Map<String, dynamic>? query,
     dynamic body,
   }) async {
+    final uri = _buildUri(path, query);
+    debugPrint('[ApiClient] PUT $uri body=$body');
     try {
       final response = await _client
           .put(
-            _buildUri(path, query),
+            uri,
             headers: {
               ..._authHeaders,
               'Content-Type': 'application/json',
@@ -130,8 +139,10 @@ class ApiClient {
             body: body != null ? jsonEncode(body) : null,
           )
           .timeout(timeout);
+      debugPrint('[ApiClient] Response ${response.statusCode}');
       return _parseResponse(response);
     } catch (e) {
+      debugPrint('[ApiClient] Error: $e');
       return _handleError(e);
     }
   }

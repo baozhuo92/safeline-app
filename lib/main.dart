@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'config/app_config.dart';
@@ -8,7 +9,19 @@ import 'theme/app_colors.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppConfig.instance.init();
+  HttpOverrides.global = _DevHttpOverrides();
   runApp(const MyApp());
+}
+
+class _DevHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    final client = super.createHttpClient(context);
+    if (AppConfig.instance.allowBadCert) {
+      client.badCertificateCallback = (cert, host, port) => true;
+    }
+    return client;
+  }
 }
 
 class MyApp extends StatelessWidget {

@@ -366,6 +366,7 @@ class _ServerConfigSheetState extends State<_ServerConfigSheet> {
   late final TextEditingController _hostController;
   late final TextEditingController _tokenController;
   late bool _isHttps;
+  late bool _allowBadCert;
 
   @override
   void initState() {
@@ -374,6 +375,7 @@ class _ServerConfigSheetState extends State<_ServerConfigSheet> {
     _hostController = TextEditingController(text: cfg.host);
     _tokenController = TextEditingController(text: cfg.token);
     _isHttps = cfg.isHttps;
+    _allowBadCert = cfg.allowBadCert;
   }
 
   @override
@@ -387,6 +389,7 @@ class _ServerConfigSheetState extends State<_ServerConfigSheet> {
     final cfg = AppConfig.instance;
     cfg.setServer(_hostController.text.trim(), _tokenController.text.trim());
     cfg.setHttps(_isHttps);
+    cfg.setAllowBadCert(_allowBadCert);
     Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -483,6 +486,8 @@ class _ServerConfigSheetState extends State<_ServerConfigSheet> {
                               ),
                               const SizedBox(height: 14),
                               _buildHttpsSwitch(isDark: isDark),
+                              const SizedBox(height: 14),
+                              _buildAllowBadCertSwitch(isDark: isDark),
                               const SizedBox(height: 14),
                               SizedBox(
                                 width: double.infinity,
@@ -633,6 +638,43 @@ class _ServerConfigSheetState extends State<_ServerConfigSheet> {
           ),
         ),
         _buildGlassToggle(_isHttps, (v) => setState(() => _isHttps = v)),
+      ],
+    );
+  }
+
+  Widget _buildAllowBadCertSwitch({required bool isDark}) {
+    final themeColors = AppThemeColors.of(context);
+    return Row(
+      children: [
+        Icon(
+          Icons.shield_outlined,
+          size: 16,
+          color: _allowBadCert ? AppColors.warning : themeColors.textPlaceholder,
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '跳过 SSL 证书验证',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: themeColors.textMain,
+                ),
+              ),
+              Text(
+                '允许自签名证书（仅用于自建服务器）',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: themeColors.textPlaceholder,
+                ),
+              ),
+            ],
+          ),
+        ),
+        _buildGlassToggle(_allowBadCert, (v) => setState(() => _allowBadCert = v)),
       ],
     );
   }
