@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'config/app_config.dart';
 import 'pages/home_page.dart';
@@ -136,43 +135,37 @@ class _MainShellState extends State<MainShell> {
   Widget _buildBottomNav(bool isDark, AppThemeColors tc) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(22),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
-          child: Container(
-            height: 56,
-            decoration: BoxDecoration(
+      child: Container(
+        height: 56,
+        decoration: BoxDecoration(
+          color: isDark
+              ? const Color(0xFF1E293B).withAlpha(180)
+              : Colors.white.withAlpha(180),
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(
+            color: isDark
+                ? Colors.white.withAlpha(18)
+                : Colors.white.withAlpha(200),
+            width: 0.6,
+          ),
+          boxShadow: [
+            BoxShadow(
               color: isDark
-                  ? const Color(0xFF1E293B).withAlpha(30)
-                  : Colors.white.withAlpha(20),
-              borderRadius: BorderRadius.circular(22),
-              border: Border.all(
-                color: isDark
-                    ? Colors.white.withAlpha(20)
-                    : Colors.white.withAlpha(120),
-                width: 0.6,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: isDark
-                      ? Colors.black.withAlpha(60)
-                      : Colors.black.withAlpha(18),
-                  blurRadius: 24,
-                  offset: const Offset(0, 8),
-                ),
-              ],
+                  ? Colors.black.withAlpha(60)
+                  : Colors.black.withAlpha(16),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
             ),
-            child: SafeArea(
-              top: false,
-              bottom: false,
-              child: Row(
-                children: [
-                  _navTab(0, '首页', Icons.home_rounded, tc),
-                  _navTab(1, '设置', Icons.settings_rounded, tc),
-                ],
-              ),
-            ),
+          ],
+        ),
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: Row(
+            children: [
+              _navTab(0, '首页', Icons.home_rounded, tc),
+              _navTab(1, '设置', Icons.settings_rounded, tc),
+            ],
           ),
         ),
       ),
