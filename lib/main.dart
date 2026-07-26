@@ -142,10 +142,10 @@ class _MainShellState extends State<MainShell> {
           filter: ImageFilter.blur(sigmaX: 32, sigmaY: 32),
           child: Container(
             height: 56,
-            color: isDark
-                ? const Color(0xFF1E293B).withAlpha(50)
-                : Colors.white.withAlpha(40),
             decoration: BoxDecoration(
+              color: isDark
+                  ? const Color(0xFF1E293B).withAlpha(50)
+                  : Colors.white.withAlpha(40),
               borderRadius: BorderRadius.circular(22),
               border: Border.all(
                 color: isDark
