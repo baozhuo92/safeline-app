@@ -98,35 +98,35 @@ class _BubbleConfig {
 }
 
 /// 四个圆球配置：尺寸、起始角落、漂移终点、渐变色
-/// light: 亮色下 alpha 更高，确保浅背景可见
+/// light: 在极淡绿底上用蓝/粉/橙/紫等对比色
 /// dark:  暗色下 alpha 低一些，避免喧宾夺主
 const _kConfigs = [
   _BubbleConfig(
     size: 200,
     alignStart: Alignment(-0.85, -0.85),
     alignEnd: Alignment(-0.50, -0.55),
-    lightColors: [Color(0x55C8E6FF), Color(0x18E6F0FF)],
+    lightColors: [Color(0x65BFDBFE), Color(0x20DBEAFE)],
     darkColors: [Color(0x30C8E6FF), Color(0x08E6F0FF)],
   ),
   _BubbleConfig(
     size: 160,
     alignStart: Alignment(0.85, -0.85),
     alignEnd: Alignment(0.55, -0.50),
-    lightColors: [Color(0x55FFD6E6), Color(0x18FFE8F0)],
+    lightColors: [Color(0x65FECDD3), Color(0x20FFE4E6)],
     darkColors: [Color(0x30FFD6E6), Color(0x08FFE8F0)],
   ),
   _BubbleConfig(
     size: 220,
     alignStart: Alignment(0.85, 0.85),
     alignEnd: Alignment(0.50, 0.55),
-    lightColors: [Color(0x55D6FFE0), Color(0x18E8FFF0)],
+    lightColors: [Color(0x65FED7AA), Color(0x20FFEDD5)],
     darkColors: [Color(0x30D6FFE0), Color(0x08E8FFF0)],
   ),
   _BubbleConfig(
     size: 140,
     alignStart: Alignment(-0.85, 0.85),
     alignEnd: Alignment(-0.55, 0.50),
-    lightColors: [Color(0x55E6D6FF), Color(0x18F0E8FF)],
+    lightColors: [Color(0x65DDD6FE), Color(0x20EDE9FE)],
     darkColors: [Color(0x30E6D6FF), Color(0x08F0E8FF)],
   ),
 ];

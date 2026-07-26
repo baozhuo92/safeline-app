@@ -109,10 +109,10 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     required this.tabSelectedBg,
   });
 
-  // ===== 亮色（Glassmorphism 清爽渐变） =====
+  // ===== 亮色（极淡绿底，衬托彩色装饰圆） =====
   static const light = AppThemeColors(
-    bgPageStart:     Color(0xFFF8FAFC),
-    bgPageEnd:       Color(0xFFEFF6FF),
+    bgPageStart:     Color(0xFFF0FDF4),
+    bgPageEnd:       Color(0xFFECFDF5),
     bgCard:          Color(0xFFFFFFFF),
     border:          Color(0xFFE2E8F0),
     textMain:        Color(0xFF1E293B),
