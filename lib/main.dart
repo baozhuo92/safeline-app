@@ -144,27 +144,22 @@ class _MainShellState extends State<MainShell> {
             height: 56,
             decoration: BoxDecoration(
               color: isDark
-                  ? const Color(0xFF1E293B).withAlpha(200)
-                  : Colors.white.withAlpha(170),
+                  ? const Color(0xFF1E293B).withAlpha(30)
+                  : Colors.white.withAlpha(20),
               borderRadius: BorderRadius.circular(22),
               border: Border.all(
-                color: GlassColors.glassBorder(isDark),
+                color: isDark
+                    ? Colors.white.withAlpha(20)
+                    : Colors.white.withAlpha(120),
                 width: 0.6,
               ),
               boxShadow: [
                 BoxShadow(
                   color: isDark
                       ? Colors.black.withAlpha(60)
-                      : const Color(0xFFB8CCFF).withAlpha(50),
+                      : Colors.black.withAlpha(18),
                   blurRadius: 24,
                   offset: const Offset(0, 8),
-                ),
-                BoxShadow(
-                  color: isDark
-                      ? Colors.black.withAlpha(30)
-                      : Colors.white.withAlpha(80),
-                  blurRadius: 4,
-                  offset: const Offset(0, -1),
                 ),
               ],
             ),
