@@ -19,10 +19,16 @@ flutter_launcher_icons:
   # background_color_ios: "#ffffff"
 
   web:
-    generate: false
+    generate: true
+    image_path: "assets/icon/logo.png"
+    background_color: "#ffffff"
+    theme_color: "#2563EB"
 
   windows:
-    generate: false
+    generate: true
+    image_path: "assets/icon/logo.png"
+    icon_size: 48
 
   macos:
-    generate: false
+    generate: true
+    image_path: "assets/icon/logo.png"
