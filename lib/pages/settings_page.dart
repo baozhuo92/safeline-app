@@ -31,9 +31,12 @@ class _SettingsPageState extends State<SettingsPage> {
             title: '服务器配置',
             icon: Icons.dns_outlined,
             children: [
-              _ServerConfigCell(
-                host: config.host,
-                isHttps: config.isHttps,
+              _SettingsRow(
+                title: '雷池服务器',
+                subtitle: config.host.isNotEmpty
+                    ? '${config.isHttps ? "https" : "http"}://${config.host}'
+                    : '未配置',
+                trailing: _chevron(context),
                 onTap: () => _openServerConfig(context),
               ),
             ],
@@ -46,10 +49,10 @@ class _SettingsPageState extends State<SettingsPage> {
             title: '通知',
             icon: Icons.notifications_outlined,
             children: [
-              TDCell(
+              _SettingsRow(
                 title: '接收推送通知',
-                note: '开启后将收到活动提醒',
-                rightIconWidget: TDSwitch(
+                subtitle: '开启后将收到活动提醒',
+                trailing: TDSwitch(
                   isOn: _notificationsOn,
                   size: TDSwitchSize.medium,
                   trackOnColor: AppColors.primary,
@@ -57,14 +60,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     setState(() => _notificationsOn = v);
                     return true;
                   },
-                ),
-                style: TDCellStyle(
-                  titleStyle: TextStyle(
-                    color: AppThemeColors.of(context).textMain,
-                  ),
-                  noteStyle: TextStyle(
-                    color: AppThemeColors.of(context).textSecondary,
-                  ),
                 ),
               ),
             ],
@@ -77,10 +72,10 @@ class _SettingsPageState extends State<SettingsPage> {
             title: '外观',
             icon: Icons.palette_outlined,
             children: [
-              TDCell(
+              _SettingsRow(
                 title: '深色模式',
-                note: config.isDarkMode ? '当前为暗色主题' : '当前为亮色主题',
-                rightIconWidget: TDSwitch(
+                subtitle: config.isDarkMode ? '当前为暗色主题' : '当前为亮色主题',
+                trailing: TDSwitch(
                   isOn: config.isDarkMode,
                   size: TDSwitchSize.medium,
                   trackOnColor: AppColors.primary,
@@ -88,14 +83,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     config.toggleTheme();
                     return true;
                   },
-                ),
-                style: TDCellStyle(
-                  titleStyle: TextStyle(
-                    color: AppThemeColors.of(context).textMain,
-                  ),
-                  noteStyle: TextStyle(
-                    color: AppThemeColors.of(context).textSecondary,
-                  ),
                 ),
               ),
             ],
@@ -108,27 +95,21 @@ class _SettingsPageState extends State<SettingsPage> {
             title: '关于',
             icon: Icons.info_outline,
             children: [
-              TDCell(
+              _SettingsRow(
                 title: '版本号',
-                note: 'v1.0.0',
-                arrow: false,
-                style: TDCellStyle(
-                  titleStyle: TextStyle(
-                    color: AppThemeColors.of(context).textMain,
-                  ),
-                  noteStyle: TextStyle(
+                trailing: Text(
+                  'v1.0.0',
+                  style: TextStyle(
+                    fontSize: 13,
                     color: AppThemeColors.of(context).textSecondary,
                   ),
                 ),
+                showDivider: true,
               ),
-              TDDivider(
-                color: GlassColors.glassBorder(isDark),
-                margin: const EdgeInsets.symmetric(horizontal: 14),
-              ),
-              TDCell(
+              _SettingsRow(
                 title: '隐私政策',
-                arrow: true,
-                onClick: (_) {
+                trailing: _chevron(context),
+                onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('隐私政策页面'),
@@ -136,11 +117,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   );
                 },
-                style: TDCellStyle(
-                  titleStyle: TextStyle(
-                    color: AppThemeColors.of(context).textMain,
-                  ),
-                ),
               ),
             ],
           ),
@@ -257,6 +233,14 @@ class _SettingsPageState extends State<SettingsPage> {
           );
         },
       ),
+    );
+  }
+
+  Icon _chevron(BuildContext context) {
+    return Icon(
+      Icons.chevron_right_rounded,
+      size: 20,
+      color: AppThemeColors.of(context).textPlaceholder,
     );
   }
 }
@@ -503,28 +487,41 @@ class _ServerConfigSheetState extends State<_ServerConfigSheet> {
   }
 }
 
-/// 服务器配置行（自定义水平布局，避免 TDCell 文字竖排）
-class _ServerConfigCell extends StatelessWidget {
-  final String host;
-  final bool isHttps;
-  final VoidCallback onTap;
+/// 统一设置行组件（所有列表项使用同一套间距和字号标准）
+class _SettingsRow extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final Widget? trailing;
+  final VoidCallback? onTap;
+  final bool showDivider;
 
-  const _ServerConfigCell({
-    required this.host,
-    required this.isHttps,
-    required this.onTap,
+  const _SettingsRow({
+    required this.title,
+    this.subtitle,
+    this.trailing,
+    this.onTap,
+    this.showDivider = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final tc = AppThemeColors.of(context);
-    final url = host.isNotEmpty ? '${isHttps ? "https" : "http"}://$host' : '未配置';
 
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: showDivider
+            ? BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: GlassColors.glassBorder(Theme.of(context).brightness == Brightness.dark),
+                    width: 0.5,
+                  ),
+                ),
+              )
+            : null,
         child: Row(
           children: [
             Expanded(
@@ -532,31 +529,32 @@ class _ServerConfigCell extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '雷池服务器',
+                    title,
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                       color: tc.textMain,
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    url,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: tc.textSecondary,
+                  if (subtitle != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle!,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: tc.textSecondary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  ],
                 ],
               ),
             ),
-            Icon(
-              Icons.chevron_right_rounded,
-              size: 20,
-              color: tc.textPlaceholder,
-            ),
+            if (trailing != null) ...[
+              const SizedBox(width: 12),
+              trailing!,
+            ],
           ],
         ),
       ),
